@@ -15,7 +15,7 @@ public class EDD_PROYECTOCLASE_201602694 {
            * @param args the command line arguments
            */
           public static void main(String[] args) {
-                    // TODO code application logic here
+                    //Prueba de inicio
           }
           
 }
