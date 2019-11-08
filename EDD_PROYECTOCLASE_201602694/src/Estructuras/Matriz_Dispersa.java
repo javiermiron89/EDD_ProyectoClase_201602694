@@ -28,14 +28,30 @@ public class Matriz_Dispersa {
                               Nodo_Matriz_Dispersa nuevaFila = new Nodo_Matriz_Dispersa(fil, -1, id, nombre);
                               Nodo_Matriz_Dispersa nuevaColumna = new Nodo_Matriz_Dispersa(-1, col, id, nombre);
                               //Se ingresan las filas y columnas
-                              crearFila();
+                              crearFila(inicioFila, nuevaFila, fil);
                     } catch (Exception e) {
                               System.out.println("ERROR AL INGRESAR EL NODO EN LA MATRIZ");
                     }
           }
           
-          private void crearFila(){
-                    
+          private void crearFila(Nodo_Matriz_Dispersa inicioFila, Nodo_Matriz_Dispersa nuevaFila, int fila){
+                    Nodo_Matriz_Dispersa temporal = inicioFila;
+                    if (inicioFila == null) {
+                              while (temporal != null && temporal.abajo != null && temporal.abajo.fila <= fila) {                                        
+                                        temporal = temporal.abajo;
+                              }
+                              //Si la fila tiene un valor menor a una ya existente, se ingresa antes
+                              if (temporal.fila < fila) {
+                                        ///Si se encuentra null, quiere decir que se inserta como primer nodo
+                                        if (temporal.abajo == null) {
+                                                  temporal.abajo = nuevaFila;
+                                                  nuevaFila.arriba = temporal;
+                                        } else {
+                                        }
+                              }
+                    } else {
+                              inicioFila = nuevaFila;
+                    }
           }
           
           
