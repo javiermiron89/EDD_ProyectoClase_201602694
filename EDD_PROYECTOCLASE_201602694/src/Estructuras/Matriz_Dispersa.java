@@ -22,7 +22,21 @@ public class Matriz_Dispersa {
                     inicioColumna = new Nodo_Matriz_Dispersa(0, -1, 0, "");
           }
           
-          void agregar(){
-          
+          public void agregar(int fil, int col, int id, String nombre){
+                    try {
+                              Nodo_Matriz_Dispersa nuevoInterno = new Nodo_Matriz_Dispersa(fil, col, id, nombre);
+                              Nodo_Matriz_Dispersa nuevaFila = new Nodo_Matriz_Dispersa(fil, -1, id, nombre);
+                              Nodo_Matriz_Dispersa nuevaColumna = new Nodo_Matriz_Dispersa(-1, col, id, nombre);
+                              //Se ingresan las filas y columnas
+                              crearFila();
+                    } catch (Exception e) {
+                              System.out.println("ERROR AL INGRESAR EL NODO EN LA MATRIZ");
+                    }
           }
+          
+          private void crearFila(){
+                    
+          }
+          
+          
 }
