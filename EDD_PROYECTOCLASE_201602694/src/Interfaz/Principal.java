@@ -5,30 +5,48 @@
  */
 package Interfaz;
 
-import Diseno.BordeRedondo;
+
 import Diseno.RoundedCornerButtonUI;
+import Diseno.RoundedPanel;
+import Estructuras.Matriz_Dispersa;
 import com.sun.awt.AWTUtilities;
+import java.util.*;
+import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoField;
+import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.SwingConstants;
+import sun.util.resources.LocaleData;
 
 /**
  *
  * @author javier
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal extends javax.swing.JFrame implements Runnable{
 
+          //Colores
+          Color Morado = new Color(88, 64, 187);
+          Color RojoCerrar = new Color(245, 73, 73);
+          Color AzulAtras = new Color(25, 35, 84);
+          Matriz_Dispersa md = new Matriz_Dispersa();
           /**
            * Creates new form Principal
            */
           public Principal() {
                     initComponents();
                     //FORMA REDONDA
+                    md = new Matriz_Dispersa();
                     Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 35, 35);
                     AWTUtilities.setWindowShape(this, forma);
                     //TERMINA FORMA REDONDA
                     this.setLocationRelativeTo(null);
                     initComponents2();
+                    th = new Thread(this);
+                    th.start();
           }
 
           /**
@@ -41,13 +59,17 @@ public class Principal extends javax.swing.JFrame {
           private void initComponents() {
 
                     jPanel3 = new javax.swing.JPanel();
-                    jPanel2 = new javax.swing.JPanel();
-                    jButton1 = new javax.swing.JButton();
-                    jLabel2 = new javax.swing.JLabel();
-                    jButton2 = new javax.swing.JButton();
                     jPanel1 = new javax.swing.JPanel();
+                    Btt_Registrar = new javax.swing.JButton();
+                    Panel_Interno = new RoundedPanel(50);
                     jLabel1 = new javax.swing.JLabel();
-                    jButton3 = new javax.swing.JButton();
+                    Lbl_FechaCompleta = new javax.swing.JLabel();
+                    Btt_Historial = new javax.swing.JButton();
+                    Btt_Cerrar = new javax.swing.JButton();
+                    Btt_Atras = new javax.swing.JButton();
+                    Btt_Clientes = new javax.swing.JButton();
+                    Btt_Productos = new javax.swing.JButton();
+                    jLabel2 = new javax.swing.JLabel();
 
                     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     setUndecorated(true);
@@ -55,57 +77,172 @@ public class Principal extends javax.swing.JFrame {
                     jPanel3.setBackground(new java.awt.Color(153, 153, 153));
                     jPanel3.setLayout(null);
 
-                    jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-                    jPanel2.setLayout(null);
-
-                    jButton1.setBackground(new java.awt.Color(0, 210, 214));
-                    jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-                    jButton1.setForeground(new java.awt.Color(255, 255, 255));
-                    jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-shopping-cart-50.png"))); // NOI18N
-                    jButton1.setText("Registrar");
-                    jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                    jButton1.setBorderPainted(false);
-                    jButton1.setFocusPainted(false);
-                    jPanel2.add(jButton1);
-                    jButton1.setBounds(550, 20, 240, 60);
-
-                    jLabel2.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
-                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo.png"))); // NOI18N
-                    jLabel2.setText("Chino Shop");
-                    jPanel2.add(jLabel2);
-                    jLabel2.setBounds(10, 10, 210, 70);
-
-                    jButton2.setBackground(new java.awt.Color(0, 210, 214));
-                    jButton2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-                    jButton2.setForeground(new java.awt.Color(255, 255, 255));
-                    jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-shopping-cart-50.png"))); // NOI18N
-                    jButton2.setText("Registrar");
-                    jButton2.setBorder(null);
-                    jButton2.setBorderPainted(false);
-                    jButton2.setFocusPainted(false);
-                    jPanel2.add(jButton2);
-                    jButton2.setBounds(270, 20, 240, 60);
-
-                    jPanel3.add(jPanel2);
-                    jPanel2.setBounds(0, 0, 1400, 100);
-
-                    jPanel1.setBackground(new java.awt.Color(247, 247, 247));
+                    jPanel1.setBackground(new java.awt.Color(255, 255, 255));
                     jPanel1.setFocusable(false);
                     jPanel1.setLayout(null);
 
-                    jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-                    jLabel1.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
-                    jLabel1.setText("Hola, Hello");
-                    jPanel1.add(jLabel1);
-                    jLabel1.setBounds(120, 70, 320, 120);
+                    Btt_Registrar.setBackground(new java.awt.Color(252, 199, 228));
+                    Btt_Registrar.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Btt_Registrar.setForeground(new java.awt.Color(205, 45, 133));
+                    Btt_Registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-shopping-cart-96.png"))); // NOI18N
+                    Btt_Registrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                    Btt_Registrar.setBorderPainted(false);
+                    Btt_Registrar.setFocusPainted(false);
+                    Btt_Registrar.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_RegistrarMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_RegistrarMouseExited(evt);
+                              }
+                    });
+                    Btt_Registrar.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_RegistrarActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Registrar);
+                    Btt_Registrar.setBounds(50, 210, 120, 120);
 
-                    jButton3.setBackground(new java.awt.Color(255, 255, 0));
-                    jButton3.setText("jButton3");
-                    jPanel1.add(jButton3);
-                    jButton3.setBounds(650, 280, 280, 170);
+                    Panel_Interno.setBackground(new java.awt.Color(13, 51, 125));
+                    Panel_Interno.setForeground(new java.awt.Color(0, 0, 0));
+                    Panel_Interno.setLayout(null);
+
+                    jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+                    jLabel1.setFont(new java.awt.Font("Lato", 1, 68)); // NOI18N
+                    jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+                    jLabel1.setText("Hola, Chino");
+                    Panel_Interno.add(jLabel1);
+                    jLabel1.setBounds(20, 20, 380, 120);
+
+                    Lbl_FechaCompleta.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Lbl_FechaCompleta.setForeground(new java.awt.Color(0, 153, 255));
+                    Lbl_FechaCompleta.setText("F");
+                    Panel_Interno.add(Lbl_FechaCompleta);
+                    Lbl_FechaCompleta.setBounds(20, 170, 620, 130);
+
+                    jPanel1.add(Panel_Interno);
+                    Panel_Interno.setBounds(700, 20, 680, 860);
+
+                    Btt_Historial.setBackground(new java.awt.Color(114, 79, 255));
+                    Btt_Historial.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Btt_Historial.setForeground(new java.awt.Color(255, 255, 255));
+                    Btt_Historial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-planner-96.png"))); // NOI18N
+                    Btt_Historial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                    Btt_Historial.setBorderPainted(false);
+                    Btt_Historial.setFocusPainted(false);
+                    Btt_Historial.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_HistorialMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_HistorialMouseExited(evt);
+                              }
+                    });
+                    Btt_Historial.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_HistorialActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Historial);
+                    Btt_Historial.setBounds(190, 210, 200, 200);
+
+                    Btt_Cerrar.setBackground(new java.awt.Color(255, 255, 255));
+                    Btt_Cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-shutdown-48.png"))); // NOI18N
+                    Btt_Cerrar.setBorder(null);
+                    Btt_Cerrar.setOpaque(false);
+                    Btt_Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_CerrarMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_CerrarMouseExited(evt);
+                              }
+                    });
+                    Btt_Cerrar.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_CerrarActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Cerrar);
+                    Btt_Cerrar.setBounds(10, 10, 50, 50);
+
+                    Btt_Atras.setBackground(new java.awt.Color(255, 255, 255));
+                    Btt_Atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-back-48.png"))); // NOI18N
+                    Btt_Atras.setBorder(null);
+                    Btt_Atras.setEnabled(false);
+                    Btt_Atras.setOpaque(false);
+                    Btt_Atras.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_AtrasMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_AtrasMouseExited(evt);
+                              }
+                    });
+                    Btt_Atras.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_AtrasActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Atras);
+                    Btt_Atras.setBounds(70, 10, 50, 50);
+
+                    Btt_Clientes.setBackground(new java.awt.Color(254, 220, 1));
+                    Btt_Clientes.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Btt_Clientes.setForeground(new java.awt.Color(251, 191, 0));
+                    Btt_Clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/men_age_group_5_96px.png"))); // NOI18N
+                    Btt_Clientes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                    Btt_Clientes.setBorderPainted(false);
+                    Btt_Clientes.setFocusPainted(false);
+                    Btt_Clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_ClientesMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_ClientesMouseExited(evt);
+                              }
+                    });
+                    Btt_Clientes.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_ClientesActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Clientes);
+                    Btt_Clientes.setBounds(410, 210, 200, 400);
+
+                    Btt_Productos.setBackground(new java.awt.Color(33, 29, 66));
+                    Btt_Productos.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Btt_Productos.setForeground(new java.awt.Color(180, 79, 121));
+                    Btt_Productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/price_tag_96px.png"))); // NOI18N
+                    Btt_Productos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                    Btt_Productos.setBorderPainted(false);
+                    Btt_Productos.setFocusPainted(false);
+                    Btt_Productos.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_ProductosMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_ProductosMouseExited(evt);
+                              }
+                    });
+                    Btt_Productos.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_ProductosActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Productos);
+                    Btt_Productos.setBounds(50, 430, 200, 200);
+
+                    jLabel2.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    jLabel2.setForeground(new java.awt.Color(239, 87, 86));
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoChino.png"))); // NOI18N
+                    jLabel2.setText("Chino Shop");
+                    jPanel1.add(jLabel2);
+                    jLabel2.setBounds(180, 90, 280, 70);
 
                     jPanel3.add(jPanel1);
-                    jPanel1.setBounds(0, 100, 1400, 800);
+                    jPanel1.setBounds(0, 0, 1400, 900);
 
                     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                     getContentPane().setLayout(layout);
@@ -124,6 +261,94 @@ public class Principal extends javax.swing.JFrame {
 
                     pack();
           }// </editor-fold>//GEN-END:initComponents
+
+          private void Btt_RegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_RegistrarMouseEntered
+                    Btt_Registrar.setSize(400, 200);
+                    Btt_Registrar.setText("Registrar");
+          }//GEN-LAST:event_Btt_RegistrarMouseEntered
+
+          private void Btt_RegistrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_RegistrarMouseExited
+                    Btt_Registrar.setSize(120,120);
+                    Btt_Registrar.setText("");
+          }//GEN-LAST:event_Btt_RegistrarMouseExited
+
+          private void Btt_RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_RegistrarActionPerformed
+                    md.agregar(0, 0, 1, "mamarre1");
+                    md.agregar(1, 1, 2, "mamarre1");
+                    md.agregar(2, 2, 3, "mamarre1");
+                    md.agregar(0, 3, 4, "mamarre1");
+                    md.agregar(1, 4, 5, "mamarre1");
+                    md.agregar(2, 5, 6, "mamarre1");
+                    md.agregar(0, 6, 7, "mamarre1");
+                    md.agregar(0, 7, 8, "mamarre1");
+                    md.imprimirMatriz();
+          }//GEN-LAST:event_Btt_RegistrarActionPerformed
+
+          private void Btt_HistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_HistorialActionPerformed
+                    
+          }//GEN-LAST:event_Btt_HistorialActionPerformed
+
+          private void Btt_HistorialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_HistorialMouseEntered
+                    Btt_Historial.setSize(400, 400);
+                    Btt_Historial.setText("Historial");
+          }//GEN-LAST:event_Btt_HistorialMouseEntered
+
+          private void Btt_HistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_HistorialMouseExited
+                    Btt_Historial.setSize(200, 200);
+                    Btt_Historial.setText("");
+          }//GEN-LAST:event_Btt_HistorialMouseExited
+
+          private void Btt_ClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_ClientesMouseEntered
+                    Btt_Clientes.setSize(250, 500);
+                    Btt_Clientes.setText("Clientes");
+          }//GEN-LAST:event_Btt_ClientesMouseEntered
+
+          private void Btt_ClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_ClientesMouseExited
+                    Btt_Clientes.setSize(200, 400);
+                    Btt_Clientes.setText("");
+          }//GEN-LAST:event_Btt_ClientesMouseExited
+
+          private void Btt_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ClientesActionPerformed
+                    // TODO add your handling code here:
+          }//GEN-LAST:event_Btt_ClientesActionPerformed
+
+          private void Btt_ProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_ProductosMouseEntered
+                    Btt_Productos.setSize(300, 400);
+                    Btt_Productos.setText("Productos");
+          }//GEN-LAST:event_Btt_ProductosMouseEntered
+
+          private void Btt_ProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_ProductosMouseExited
+                    Btt_Productos.setSize(200, 200);
+                    Btt_Productos.setText("");
+          }//GEN-LAST:event_Btt_ProductosMouseExited
+
+          private void Btt_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ProductosActionPerformed
+                    // TODO add your handling code here:
+          }//GEN-LAST:event_Btt_ProductosActionPerformed
+
+          private void Btt_CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CerrarActionPerformed
+                    System.exit(0);
+          }//GEN-LAST:event_Btt_CerrarActionPerformed
+
+          private void Btt_CerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_CerrarMouseEntered
+                    Btt_Cerrar.setBackground(RojoCerrar);
+          }//GEN-LAST:event_Btt_CerrarMouseEntered
+
+          private void Btt_CerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_CerrarMouseExited
+                    Btt_Cerrar.setBackground(Color.WHITE);
+          }//GEN-LAST:event_Btt_CerrarMouseExited
+
+          private void Btt_AtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_AtrasActionPerformed
+                    // TODO add your handling code here:
+          }//GEN-LAST:event_Btt_AtrasActionPerformed
+
+          private void Btt_AtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_AtrasMouseEntered
+                    Btt_Atras.setBackground(AzulAtras);
+          }//GEN-LAST:event_Btt_AtrasMouseEntered
+
+          private void Btt_AtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_AtrasMouseExited
+                    Btt_Atras.setBackground(Color.WHITE);
+          }//GEN-LAST:event_Btt_AtrasMouseExited
 
           /**
            * @param args the command line arguments
@@ -159,27 +384,99 @@ public class Principal extends javax.swing.JFrame {
                               }
                     });
           }
-          
-          public void initComponents2(){
-                    //jButton1.setBorder(new BordeRedondo(70));
-                    //jButton1.setBorder(BorderFactory.createEmptyBorder(0,0,0,0)); // Especially important 
-                    jButton1.setUI(new RoundedCornerButtonUI());
-                    jButton1.setFocusable(false);
-                    jButton1.setBorder(BorderFactory.createEmptyBorder(0,0,0,0)); // Especially important
-                    jButton3.setUI(new RoundedCornerButtonUI());
-                    jButton3.setFocusable(false);
-                    jButton3.setBorder(BorderFactory.createEmptyBorder(0,0,0,0)); // Especially important
-                    //jButton3.setContentAreaFilled(false);
+
+          public void initComponents2() {
+                    Btt_Cerrar.setUI(new RoundedCornerButtonUI());
+                    Btt_Cerrar.setFocusable(false);
+                    Btt_Cerrar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    Btt_Atras.setUI(new RoundedCornerButtonUI());
+                    Btt_Atras.setFocusable(false);
+                    Btt_Atras.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    
+                    Btt_Registrar.setUI(new RoundedCornerButtonUI());
+                    Btt_Registrar.setFocusable(false);
+                    Btt_Registrar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    Btt_Registrar.setHorizontalTextPosition(SwingConstants.CENTER);
+                    Btt_Registrar.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    Btt_Historial.setUI(new RoundedCornerButtonUI());
+                    Btt_Historial.setFocusable(false);
+                    Btt_Historial.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    Btt_Historial.setHorizontalTextPosition(SwingConstants.CENTER);
+                    Btt_Historial.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    Btt_Clientes.setUI(new RoundedCornerButtonUI());
+                    Btt_Clientes.setFocusable(false);
+                    Btt_Clientes.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    Btt_Clientes.setHorizontalTextPosition(SwingConstants.CENTER);
+                    Btt_Clientes.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    Btt_Productos.setUI(new RoundedCornerButtonUI());
+                    Btt_Productos.setFocusable(false);
+                    Btt_Productos.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    Btt_Productos.setHorizontalTextPosition(SwingConstants.CENTER);
+                    Btt_Productos.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    
+                    Panel_Interno.setOpaque(false);
+                    /*
+                    Date date = new Date();
+                    System.out.println(date);
+                    DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+                    DateFormat fechaFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                    String fecha = hourdateFormat.format(date);
+                    Lbl_Fecha.setText(fecha);
+                    */
           }
 
           // Variables declaration - do not modify//GEN-BEGIN:variables
-          private javax.swing.JButton jButton1;
-          private javax.swing.JButton jButton2;
-          private javax.swing.JButton jButton3;
+          private javax.swing.JButton Btt_Atras;
+          private javax.swing.JButton Btt_Cerrar;
+          private javax.swing.JButton Btt_Clientes;
+          private javax.swing.JButton Btt_Historial;
+          private javax.swing.JButton Btt_Productos;
+          private javax.swing.JButton Btt_Registrar;
+          private javax.swing.JLabel Lbl_FechaCompleta;
+          private javax.swing.JPanel Panel_Interno;
           private javax.swing.JLabel jLabel1;
           private javax.swing.JLabel jLabel2;
           private javax.swing.JPanel jPanel1;
-          private javax.swing.JPanel jPanel2;
           private javax.swing.JPanel jPanel3;
           // End of variables declaration//GEN-END:variables
+
+          //Aca se crea el reloj
+          String fecha, horas, minutos, segundos, ampm;
+          Thread th;
+          
+          @Override
+          public void run() {
+                    Thread ct = Thread.currentThread();
+                    while (ct == th) {
+                              Calcular();
+                              Lbl_FechaCompleta.setText(fecha + "     " + horas + ":" + minutos + ":" + segundos + " " + ampm);
+                              try {
+                                        Thread.sleep(1000);
+                              } catch (Exception e) {
+                              }
+                    }
+          }
+
+          public void Calcular() {
+                    Calendar calendariointerno = new GregorianCalendar();
+                    Date FechaHoraActual = new Date();
+                    
+                    calendariointerno.setTime(FechaHoraActual);
+                    ampm = calendariointerno.get(Calendar.AM_PM) == Calendar.AM ? "AM" : "PM";
+
+                    if (ampm.equals("PM")) {
+                              int h = calendariointerno.get(Calendar.HOUR_OF_DAY) - 12;
+                              horas = h > 9 ? "" + h : "0" + h;
+                    } else {
+                              horas = calendariointerno.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendariointerno.get(Calendar.HOUR_OF_DAY) : "0" + calendariointerno.get(Calendar.HOUR_OF_DAY);
+                    }
+                    minutos = calendariointerno.get(Calendar.MINUTE) > 9 ? "" + calendariointerno.get(Calendar.MINUTE) : "0" + calendariointerno.get(Calendar.MINUTE);
+                    segundos = calendariointerno.get(Calendar.SECOND) > 9 ? "" + calendariointerno.get(Calendar.SECOND) : "0" + calendariointerno.get(Calendar.SECOND);
+                    
+                    Date date = new Date();
+                    DateFormat fechaFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    fecha = fechaFormat.format(date);
+                    //fecha = Integer.toString(calendariointerno.get(Calendar.DATE));
+          }
 }
