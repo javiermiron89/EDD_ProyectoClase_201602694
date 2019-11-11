@@ -90,44 +90,43 @@ public class RoundedCornerButtonUI extends BasicButtonUI {
                     ButtonModel model = b.getModel();
                     initShape(b);
                     //ContentArea
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                            RenderingHints.VALUE_ANTIALIAS_ON);
-                    if (model.isArmed()) {
-                              g2.setColor(ac);
-                              g2.fill(shape);
-                    } else if (b.isRolloverEnabled() && model.isRollover()) {
-                              paintFocusAndRollover(g2, c, rc);
-                    } else if (b.hasFocus()) {
-                              paintFocusAndRollover(g2, c, fc);
-                    } else {
-                              g2.setColor(c.getBackground());
-                              g2.fill(shape);
-                    }
-                    //Border
-                    g2.setPaint(c.getForeground());
-                    g2.draw(shape);
-
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    
                     g2.setColor(c.getBackground());
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                            RenderingHints.VALUE_ANTIALIAS_OFF);
+                    g2.fill(shape);
+                    /*
+                    METODOS PARA ENTRAR Y SALIR DEL BOTTON
+                    if (model.isArmed()) {
+                              //g2.setColor(ac);
+                              //g2.fill(shape);
+                    } else if (b.isRolloverEnabled() && model.isRollover()) {
+                              //paintFocusAndRollover(g2, c, rc);
+                    } else if (b.hasFocus()) {
+                              //paintFocusAndRollover(g2, c, fc);
+                    } else {
+                              //g2.setColor(c.getBackground());
+                              //g2.fill(shape);
+                    }
+                    */
+                    //Border
+                    //g2.setPaint(c.getForeground());
+                    //g2.draw(shape);
+
+                    //g2.setColor(c.getBackground());
+                    //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
                     super.paint(g2, c);
           }
 
           private void initShape(JComponent c) {
                     if (!c.getBounds().equals(base)) {
                               base = c.getBounds();
-                              shape = new RoundRectangle2D.Float(0, 0, c.getWidth() - 1, c.getHeight() - 1,
-                                      arcwidth, archeight);
-                              border = new RoundRectangle2D.Float(focusstroke, focusstroke,
-                                      c.getWidth() - 1 - focusstroke * 2,
-                                      c.getHeight() - 1 - focusstroke * 2,
-                                      arcwidth, archeight);
+                              shape = new RoundRectangle2D.Float(0, 0, c.getWidth() - 1, c.getHeight() - 1, arcwidth, archeight);
+                              border = new RoundRectangle2D.Float(focusstroke, focusstroke, c.getWidth() - 1 - focusstroke * 2, c.getHeight() - 1 - focusstroke * 2, arcwidth, archeight);
                     }
           }
 
           private void paintFocusAndRollover(Graphics2D g2, JComponent c, Color color) {
-                    g2.setPaint(new GradientPaint(0, 0, color, c.getWidth() - 1, c.getHeight() - 1,
-                            color.brighter(), true));
+                    g2.setPaint(new GradientPaint(0, 0, color, c.getWidth() - 1, c.getHeight() - 1, color.brighter(), true));
                     g2.fill(shape);
                     g2.setColor(c.getBackground());
                     g2.fill(border);
