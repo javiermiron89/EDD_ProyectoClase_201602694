@@ -7,7 +7,10 @@ package Interfaz;
 
 
 import Diseno.RoundedCornerButtonUI;
+import Diseno.RoundedLabel;
 import Diseno.RoundedPanel;
+import Estructuras.Lista_Doble_Cliente;
+import Estructuras.Lista_Productos;
 import Estructuras.Matriz_Dispersa;
 import com.sun.awt.AWTUtilities;
 import java.util.*;
@@ -33,13 +36,16 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           Color RojoCerrar = new Color(245, 73, 73);
           Color AzulAtras = new Color(25, 35, 84);
           Matriz_Dispersa md = new Matriz_Dispersa();
+          Lista_Doble_Cliente ldc = new Lista_Doble_Cliente();
+          Lista_Productos lp = new Lista_Productos();
+          Clientes FrameClientes = new Clientes();
+          Productos FrameProductos = new Productos();
           /**
            * Creates new form Principal
            */
           public Principal() {
                     initComponents();
                     //FORMA REDONDA
-                    md = new Matriz_Dispersa();
                     Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 35, 35);
                     AWTUtilities.setWindowShape(this, forma);
                     //TERMINA FORMA REDONDA
@@ -62,14 +68,21 @@ public class Principal extends javax.swing.JFrame implements Runnable{
                     jPanel1 = new javax.swing.JPanel();
                     Btt_Registrar = new javax.swing.JButton();
                     Panel_Interno = new RoundedPanel(50);
-                    jLabel1 = new javax.swing.JLabel();
                     Lbl_FechaCompleta = new javax.swing.JLabel();
+                    Panel_Fondo2 = new RoundedPanel(60);
+                    Lbl_Productos = new javax.swing.JLabel();
+                    Panel_Fondo3 = new RoundedPanel(60);
+                    Lbl_Mamarre = new javax.swing.JLabel();
+                    Panel_Fondo = new RoundedPanel(60);
+                    Lbl_Clientes = new javax.swing.JLabel();
+                    jLabel3 = new javax.swing.JLabel();
                     Btt_Historial = new javax.swing.JButton();
                     Btt_Cerrar = new javax.swing.JButton();
                     Btt_Atras = new javax.swing.JButton();
                     Btt_Clientes = new javax.swing.JButton();
                     Btt_Productos = new javax.swing.JButton();
                     jLabel2 = new javax.swing.JLabel();
+                    Btt_Factura = new javax.swing.JButton();
 
                     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     setUndecorated(true);
@@ -104,22 +117,66 @@ public class Principal extends javax.swing.JFrame implements Runnable{
                     jPanel1.add(Btt_Registrar);
                     Btt_Registrar.setBounds(50, 210, 120, 120);
 
-                    Panel_Interno.setBackground(new java.awt.Color(13, 51, 125));
+                    Panel_Interno.setBackground(new java.awt.Color(25, 39, 80));
                     Panel_Interno.setForeground(new java.awt.Color(0, 0, 0));
                     Panel_Interno.setLayout(null);
 
-                    jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-                    jLabel1.setFont(new java.awt.Font("Lato", 1, 68)); // NOI18N
-                    jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel1.setText("Hola, Chino");
-                    Panel_Interno.add(jLabel1);
-                    jLabel1.setBounds(20, 20, 380, 120);
-
                     Lbl_FechaCompleta.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
-                    Lbl_FechaCompleta.setForeground(new java.awt.Color(0, 153, 255));
+                    Lbl_FechaCompleta.setForeground(new java.awt.Color(254, 220, 1));
                     Lbl_FechaCompleta.setText("F");
                     Panel_Interno.add(Lbl_FechaCompleta);
-                    Lbl_FechaCompleta.setBounds(20, 170, 620, 130);
+                    Lbl_FechaCompleta.setBounds(100, 110, 500, 130);
+
+                    Panel_Fondo2.setBackground(new java.awt.Color(43, 90, 136));
+                    Panel_Fondo2.setForeground(new java.awt.Color(0, 0, 0));
+                    Panel_Fondo2.setOpaque(false);
+                    Panel_Fondo2.setLayout(null);
+
+                    Lbl_Productos.setBackground(new java.awt.Color(0, 0, 0));
+                    Lbl_Productos.setFont(new java.awt.Font("Lato", 1, 68)); // NOI18N
+                    Lbl_Productos.setForeground(new java.awt.Color(255, 255, 255));
+                    Lbl_Productos.setText("Productos: 95");
+                    Panel_Fondo2.add(Lbl_Productos);
+                    Lbl_Productos.setBounds(10, 30, 620, 120);
+
+                    Panel_Interno.add(Panel_Fondo2);
+                    Panel_Fondo2.setBounds(20, 440, 640, 190);
+
+                    Panel_Fondo3.setBackground(new java.awt.Color(254, 200, 1));
+                    Panel_Fondo3.setForeground(new java.awt.Color(0, 0, 0));
+                    Panel_Fondo3.setOpaque(false);
+                    Panel_Fondo3.setLayout(null);
+
+                    Lbl_Mamarre.setBackground(new java.awt.Color(0, 0, 0));
+                    Lbl_Mamarre.setFont(new java.awt.Font("Lato", 1, 68)); // NOI18N
+                    Lbl_Mamarre.setForeground(new java.awt.Color(255, 255, 255));
+                    Lbl_Mamarre.setText("Ventas: 9");
+                    Panel_Fondo3.add(Lbl_Mamarre);
+                    Lbl_Mamarre.setBounds(10, 30, 620, 120);
+
+                    Panel_Interno.add(Panel_Fondo3);
+                    Panel_Fondo3.setBounds(20, 650, 640, 190);
+
+                    Panel_Fondo.setBackground(new java.awt.Color(69, 94, 238));
+                    Panel_Fondo.setForeground(new java.awt.Color(0, 0, 0));
+                    Panel_Fondo.setLayout(null);
+
+                    Lbl_Clientes.setBackground(new java.awt.Color(0, 0, 0));
+                    Lbl_Clientes.setFont(new java.awt.Font("Lato", 1, 68)); // NOI18N
+                    Lbl_Clientes.setForeground(new java.awt.Color(255, 255, 255));
+                    Lbl_Clientes.setText("Clientes: 15");
+                    Panel_Fondo.add(Lbl_Clientes);
+                    Lbl_Clientes.setBounds(20, 40, 610, 120);
+
+                    Panel_Interno.add(Panel_Fondo);
+                    Panel_Fondo.setBounds(20, 230, 640, 190);
+
+                    jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+                    jLabel3.setFont(new java.awt.Font("Lato", 1, 68)); // NOI18N
+                    jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+                    jLabel3.setText("Hola, Chino");
+                    Panel_Interno.add(jLabel3);
+                    jLabel3.setBounds(20, 20, 380, 120);
 
                     jPanel1.add(Panel_Interno);
                     Panel_Interno.setBounds(700, 20, 680, 860);
@@ -241,6 +298,29 @@ public class Principal extends javax.swing.JFrame implements Runnable{
                     jPanel1.add(jLabel2);
                     jLabel2.setBounds(180, 90, 280, 70);
 
+                    Btt_Factura.setBackground(new java.awt.Color(205, 0, 41));
+                    Btt_Factura.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Btt_Factura.setForeground(new java.awt.Color(0, 0, 0));
+                    Btt_Factura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/receipt_64px.png"))); // NOI18N
+                    Btt_Factura.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+                    Btt_Factura.setBorderPainted(false);
+                    Btt_Factura.setFocusPainted(false);
+                    Btt_Factura.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                        Btt_FacturaMouseEntered(evt);
+                              }
+                              public void mouseExited(java.awt.event.MouseEvent evt) {
+                                        Btt_FacturaMouseExited(evt);
+                              }
+                    });
+                    Btt_Factura.addActionListener(new java.awt.event.ActionListener() {
+                              public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        Btt_FacturaActionPerformed(evt);
+                              }
+                    });
+                    jPanel1.add(Btt_Factura);
+                    Btt_Factura.setBounds(50, 650, 560, 100);
+
                     jPanel3.add(jPanel1);
                     jPanel1.setBounds(0, 0, 1400, 900);
 
@@ -273,19 +353,16 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           }//GEN-LAST:event_Btt_RegistrarMouseExited
 
           private void Btt_RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_RegistrarActionPerformed
-                    md.agregar(0, 0, 1, "mamarre1");
-                    md.agregar(1, 1, 2, "mamarre1");
-                    md.agregar(2, 2, 3, "mamarre1");
-                    md.agregar(0, 3, 4, "mamarre1");
-                    md.agregar(1, 4, 5, "mamarre1");
-                    md.agregar(2, 5, 6, "mamarre1");
-                    md.agregar(0, 6, 7, "mamarre1");
-                    md.agregar(0, 7, 8, "mamarre1");
-                    md.imprimirMatriz();
+                    th.stop();
+                    FrameClientes.setVisible(true);
+                    this.dispose();
           }//GEN-LAST:event_Btt_RegistrarActionPerformed
 
           private void Btt_HistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_HistorialActionPerformed
-                    
+                    md.imprimirMatriz();
+                    md.imprimirMatrizG();
+                    md.GenerarDOTMatrizDispersa();
+                    md.AbrirDOTMatrizDispersa();
           }//GEN-LAST:event_Btt_HistorialActionPerformed
 
           private void Btt_HistorialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_HistorialMouseEntered
@@ -309,7 +386,9 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           }//GEN-LAST:event_Btt_ClientesMouseExited
 
           private void Btt_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ClientesActionPerformed
-                    // TODO add your handling code here:
+                    th.stop();
+                    FrameProductos.setVisible(true);
+                    this.dispose();
           }//GEN-LAST:event_Btt_ClientesActionPerformed
 
           private void Btt_ProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_ProductosMouseEntered
@@ -349,6 +428,20 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           private void Btt_AtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_AtrasMouseExited
                     Btt_Atras.setBackground(Color.WHITE);
           }//GEN-LAST:event_Btt_AtrasMouseExited
+
+          private void Btt_FacturaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_FacturaMouseEntered
+                    Btt_Factura.setSize(560, 200);
+                    Btt_Factura.setText("Facturar");
+          }//GEN-LAST:event_Btt_FacturaMouseEntered
+
+          private void Btt_FacturaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_FacturaMouseExited
+                    Btt_Factura.setSize(560, 100);
+                    Btt_Factura.setText("");
+          }//GEN-LAST:event_Btt_FacturaMouseExited
+
+          private void Btt_FacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_FacturaActionPerformed
+                    // TODO add your handling code here:
+          }//GEN-LAST:event_Btt_FacturaActionPerformed
 
           /**
            * @param args the command line arguments
@@ -413,8 +506,16 @@ public class Principal extends javax.swing.JFrame implements Runnable{
                     Btt_Productos.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
                     Btt_Productos.setHorizontalTextPosition(SwingConstants.CENTER);
                     Btt_Productos.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    Btt_Factura.setUI(new RoundedCornerButtonUI());
+                    Btt_Factura.setFocusable(false);
+                    Btt_Factura.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                    Btt_Factura.setHorizontalTextPosition(SwingConstants.CENTER);
+                    Btt_Factura.setVerticalTextPosition(SwingConstants.BOTTOM);
                     
                     Panel_Interno.setOpaque(false);
+                    Panel_Fondo.setOpaque(false);
+                    
+                    //jLabel4.setBorder(new RoundedLabel(Color.WHITE, 10));
                     /*
                     Date date = new Date();
                     System.out.println(date);
@@ -430,13 +531,20 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           private javax.swing.JButton Btt_Atras;
           private javax.swing.JButton Btt_Cerrar;
           private javax.swing.JButton Btt_Clientes;
+          private javax.swing.JButton Btt_Factura;
           private javax.swing.JButton Btt_Historial;
           private javax.swing.JButton Btt_Productos;
           private javax.swing.JButton Btt_Registrar;
+          private javax.swing.JLabel Lbl_Clientes;
           private javax.swing.JLabel Lbl_FechaCompleta;
+          private javax.swing.JLabel Lbl_Mamarre;
+          private javax.swing.JLabel Lbl_Productos;
+          private javax.swing.JPanel Panel_Fondo;
+          private javax.swing.JPanel Panel_Fondo2;
+          private javax.swing.JPanel Panel_Fondo3;
           private javax.swing.JPanel Panel_Interno;
-          private javax.swing.JLabel jLabel1;
           private javax.swing.JLabel jLabel2;
+          private javax.swing.JLabel jLabel3;
           private javax.swing.JPanel jPanel1;
           private javax.swing.JPanel jPanel3;
           // End of variables declaration//GEN-END:variables

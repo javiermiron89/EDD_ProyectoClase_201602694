@@ -9,8 +9,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -36,7 +39,6 @@ public class RoundedPanel extends JPanel {
           public RoundedPanel(int radius) {
                     super();
                     cornerRadius = radius;
-
           }
 
           public RoundedPanel(int radius, Color bgColor) {
