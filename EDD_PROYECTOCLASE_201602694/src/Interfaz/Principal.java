@@ -35,11 +35,13 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           Color Morado = new Color(88, 64, 187);
           Color RojoCerrar = new Color(245, 73, 73);
           Color AzulAtras = new Color(25, 35, 84);
-          Matriz_Dispersa md = new Matriz_Dispersa();
-          Lista_Doble_Cliente ldc = new Lista_Doble_Cliente();
-          Lista_Productos lp = new Lista_Productos();
+          public static Matriz_Dispersa md = new Matriz_Dispersa();
+          public static Lista_Doble_Cliente ldc = new Lista_Doble_Cliente();
+          public static Lista_Productos lp = new Lista_Productos();
           Clientes FrameClientes = new Clientes();
           Productos FrameProductos = new Productos();
+          Ventas FrameVentas = new Ventas();
+          Facturas FrameFacturas = new Facturas();
           /**
            * Creates new form Principal
            */
@@ -53,6 +55,8 @@ public class Principal extends javax.swing.JFrame implements Runnable{
                     initComponents2();
                     th = new Thread(this);
                     th.start();
+                    Lbl_Clientes.setText("Clientes: " + ldc.CuantoHay());
+                    Lbl_Productos.setText("Productos: " + lp.CuantoHay());
           }
 
           /**
@@ -344,7 +348,7 @@ public class Principal extends javax.swing.JFrame implements Runnable{
 
           private void Btt_RegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_RegistrarMouseEntered
                     Btt_Registrar.setSize(400, 200);
-                    Btt_Registrar.setText("Registrar");
+                    Btt_Registrar.setText("Ventas");
           }//GEN-LAST:event_Btt_RegistrarMouseEntered
 
           private void Btt_RegistrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_RegistrarMouseExited
@@ -354,7 +358,7 @@ public class Principal extends javax.swing.JFrame implements Runnable{
 
           private void Btt_RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_RegistrarActionPerformed
                     th.stop();
-                    FrameClientes.setVisible(true);
+                    FrameVentas.setVisible(true);
                     this.dispose();
           }//GEN-LAST:event_Btt_RegistrarActionPerformed
 
@@ -386,8 +390,7 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           }//GEN-LAST:event_Btt_ClientesMouseExited
 
           private void Btt_ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ClientesActionPerformed
-                    th.stop();
-                    FrameProductos.setVisible(true);
+                    FrameClientes.setVisible(true);
                     this.dispose();
           }//GEN-LAST:event_Btt_ClientesActionPerformed
 
@@ -402,7 +405,8 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           }//GEN-LAST:event_Btt_ProductosMouseExited
 
           private void Btt_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ProductosActionPerformed
-                    // TODO add your handling code here:
+                    FrameProductos.setVisible(true);
+                    this.dispose();
           }//GEN-LAST:event_Btt_ProductosActionPerformed
 
           private void Btt_CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CerrarActionPerformed
@@ -440,7 +444,9 @@ public class Principal extends javax.swing.JFrame implements Runnable{
           }//GEN-LAST:event_Btt_FacturaMouseExited
 
           private void Btt_FacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_FacturaActionPerformed
-                    // TODO add your handling code here:
+                    FrameFacturas.setVisible(true);
+                    this.dispose();
+                    
           }//GEN-LAST:event_Btt_FacturaActionPerformed
 
           /**

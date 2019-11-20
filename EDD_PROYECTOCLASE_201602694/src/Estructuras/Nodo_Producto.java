@@ -15,16 +15,18 @@ public class Nodo_Producto {
           public String nombre;
           public String marca;
           public int cantidad;
+          public int precio;
           public String tipo;
           public Boolean disponible;
           public Nodo_Producto siguiente;
           public Nodo_Producto anterior;
 
-          public Nodo_Producto(int id_Producto, String nombre, String marca, int cantidad, String tipo, Boolean disponible) {
+          public Nodo_Producto(int id_Producto, String nombre, String marca, int cantidad, int precio, String tipo, Boolean disponible) {
                     this.id_Producto = id_Producto;
                     this.nombre = nombre;
                     this.marca = marca;
                     this.cantidad = cantidad;
+                    this.precio = precio;
                     this.tipo = tipo.toUpperCase();
                     this.disponible = disponible;
           }

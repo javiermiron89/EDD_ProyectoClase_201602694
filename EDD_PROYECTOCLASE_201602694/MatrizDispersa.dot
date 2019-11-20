@@ -1,0 +1,48 @@
+digraph Sparce_Matrix {
+rankdir=TB;
+node [shape=box];
+edge[arrowhead=none,arrowtail=dot];Mt [label = "Matriz" width = 1.5 style = filled, colorfilled = white, group = "MA"];
+F123[label = "NIT: 123", constraint=false, width = 1.5 style = filled, fillcolor = coral2, group = "MA"];
+F2569[label = "NIT: 2569", constraint=false, width = 1.5 style = filled, fillcolor = coral2, group = "MA"];
+F6792804[label = "NIT: 6792804", constraint=false, width = 1.5 style = filled, fillcolor = coral2, group = "MA"];
+C14[label = "PRODUCTO: 14"  width = 1.5 style = filled, fillcolor = skyblue2, group="G14"];
+C47[label = "PRODUCTO: 47"  width = 1.5 style = filled, fillcolor = skyblue2, group="G47"];
+C58[label = "PRODUCTO: 58"  width = 1.5 style = filled, fillcolor = skyblue2, group="G58"];
+C523[label = "PRODUCTO: 523"  width = 1.5 style = filled, fillcolor = skyblue2, group="G523"];
+{ rank = same; Mt; C14;C47;C58;C523;}
+F123 -> F2569;
+F2569 -> F6792804;
+C14 -> C47;
+C47 -> C58;
+C58 -> C523;
+F123C14[label = "Cantidad: 58 : Factura: 0", width = 1.5, style = filled, fillcolor = gold2, group="G14"];
+C14->F123C14;
+{rank = same; F123; F123C14; }
+F2569C14[label = "Cantidad: 58 : Factura: 1", width = 1.5, style = filled, fillcolor = gold2, group="G14"];
+F123C14->F2569C14[constraint = true];
+{rank = same; F2569; F2569C14; }
+F6792804C14[label = "Cantidad: 48 : Factura: 2", width = 1.5, style = filled, fillcolor = gold2, group="G14"];
+F2569C14->F6792804C14[constraint = true];
+{rank = same; F6792804; F6792804C14; }
+F2569C47[label = "Cantidad: 695 : Factura: 1", width = 1.5, style = filled, fillcolor = gold2, group="G47"];
+C47->F2569C47;
+{rank = same; F2569; F2569C47; }
+F6792804C47[label = "Cantidad: 596 : Factura: 2", width = 1.5, style = filled, fillcolor = gold2, group="G47"];
+F2569C47->F6792804C47[constraint = true];
+{rank = same; F6792804; F6792804C47; }
+F6792804C58[label = "Cantidad: 258 : Factura: 2", width = 1.5, style = filled, fillcolor = gold2, group="G58"];
+C58->F6792804C58;
+{rank = same; F6792804; F6792804C58; }
+F6792804C523[label = "Cantidad: 475 : Factura: 2", width = 1.5, style = filled, fillcolor = gold2, group="G523"];
+C523->F6792804C523;
+{rank = same; F6792804; F6792804C523; }
+F123->F123C14;
+F2569->F2569C14;
+F2569C14->F2569C47[constraint = true];
+F6792804->F6792804C14;
+F6792804C14->F6792804C47[constraint = true];
+F6792804C47->F6792804C58[constraint = true];
+F6792804C58->F6792804C523[constraint = true];
+Mt -> F123;
+Mt -> C14 ;
+}

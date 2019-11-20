@@ -5,7 +5,9 @@
  */
 package Estructuras;
 
+import Interfaz.Facturas;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -163,4 +165,41 @@ public class Lista_Doble_Cliente {
                     }
           }
 
+          public void RetornarClientes(Facturas facturas) {
+                    facturas.Cbx_Nit.removeAllItems();
+                    Nodo_Cliente actual = new Nodo_Cliente();
+                    actual = inicio;
+                    if (inicio == null) {
+                              System.out.println("Lista NITS vacia");
+                              JOptionPane.showMessageDialog(null, "NO SE ENCONTRO NINGUN CLIENTE REGISTRADO", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                              while (actual != null) {
+                                        //System.out.print(actual.nit + "       ");
+                                        facturas.Cbx_Nit.addItem(Integer.toString(actual.nit));
+                                        actual = actual.siguiente;
+                              }
+                    }
+          }
+          
+          public String RetornarNombreCliente(String nit) {
+                    String retorno = "";
+                    Nodo_Cliente actual = new Nodo_Cliente();
+                    actual = inicio;
+                    boolean encontrado = false;
+                    if (inicio == null) {
+                              System.out.println("Lista Vacia");
+                    } else {
+                              while (actual != null && encontrado != true) {
+                                        if (actual.nit == Integer.parseInt(nit)) {
+                                                  retorno = actual.nombre + " " + actual.apellido;
+                                                  break;
+                                        }
+                                        actual = actual.siguiente;
+                              }
+                              if (encontrado == false) {
+                                        
+                              }
+                    }
+                    return retorno;
+          }
 }

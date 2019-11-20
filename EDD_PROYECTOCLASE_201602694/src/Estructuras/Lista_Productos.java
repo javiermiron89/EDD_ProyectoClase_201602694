@@ -23,8 +23,8 @@ public class Lista_Productos {
                     fin = null;
           }
           
-          public void agregarALista(int id_Producto, String nombre, String marca, int cantidad, String tipo, boolean disponible) {
-                    Nodo_Producto nuevo_nodo = new Nodo_Producto(id_Producto, nombre, marca, cantidad, tipo, disponible);
+          public void agregarALista(int id_Producto, String nombre, String marca, int cantidad, int precio, String tipo, boolean disponible) {
+                    Nodo_Producto nuevo_nodo = new Nodo_Producto(id_Producto, nombre, marca, cantidad, precio, tipo, disponible);
                     Nodo_Producto auxiliar = inicio;
                     if (inicio == null) {
                               inicio = nuevo_nodo;
@@ -66,7 +66,7 @@ public class Lista_Productos {
                     }
           }
           
-          public void ModificarListaProductos(int NodoBuscado/*id_Producto*/, String nombre, String marca, int cantidad, String tipo, boolean disponible) {
+          public void ModificarListaProductos(int NodoBuscado/*id_Producto*/, String nombre, String marca, int cantidad, int precio, String tipo, boolean disponible) {
                     Nodo_Producto actual = new Nodo_Producto();
                     actual = inicio;
                     boolean encontrado = false;
@@ -75,11 +75,12 @@ public class Lista_Productos {
                     } else {
                               while (actual != null && encontrado != true) {
                                         if (actual.id_Producto == NodoBuscado) {
-                                                  System.out.println("El NIT (" + NodoBuscado + ") ha sido encontrado");
+                                                  System.out.println("El ID (" + NodoBuscado + ") ha sido encontrado");
                                                   actual.id_Producto = NodoBuscado;
                                                   actual.nombre = nombre;
                                                   actual.marca = marca;
                                                   actual.cantidad = cantidad;
+                                                  actual.precio = precio;
                                                   actual.tipo = tipo;
                                                   actual.disponible = disponible;
                                                   encontrado = true;
@@ -88,7 +89,7 @@ public class Lista_Productos {
                                         actual = actual.siguiente;
                               }
                               if (encontrado == false) {
-                                        System.out.println("El NIT (" + NodoBuscado + ") no se encontro");
+                                        System.out.println("El ID (" + NodoBuscado + ") no se encontro");
                               }
                     }
           }
@@ -102,7 +103,7 @@ public class Lista_Productos {
                     } else {
                               while (actual != null && encontrado != true) {
                                         if (actual.id_Producto == NodoBuscado) {
-                                                  System.out.println("El NIT (" + NodoBuscado + ") ha sido encontrado");
+                                                  System.out.println("El ID (" + NodoBuscado + ") ha sido encontrado");
                                                   actual.anterior.siguiente = actual.siguiente;
                                                   actual.siguiente.anterior = actual.anterior;
                                                   actual = null;
@@ -112,7 +113,7 @@ public class Lista_Productos {
                                         actual = actual.siguiente;
                               }
                               if (encontrado == false) {
-                                        System.out.println("El NIT (" + NodoBuscado + ") no se encontro");
+                                        System.out.println("El ID (" + NodoBuscado + ") no se encontro");
                               }
                     }
           }
@@ -156,12 +157,37 @@ public class Lista_Productos {
                               System.out.println("Lista Vacia");
                     } else {
                               while (actual != null) {
-                                        Object[] info = new Object[]{actual.id_Producto, actual.nombre, actual.marca, actual.cantidad, actual.tipo, actual.disponible};
+                                        Object[] info = new Object[]{actual.id_Producto, actual.nombre, actual.marca, actual.cantidad, actual.precio, actual.tipo, actual.disponible};
                                         datosTabla.add(info);
                                         modelo.addRow(info);
                                         actual = actual.siguiente;
                               }
                     }
+          }
+
+          public String BuscarProducto(int NodoBuscado) {
+                    String retorno = "";
+                    Nodo_Producto actual = new Nodo_Producto();
+                    actual = inicio;
+                    boolean encontrado = false;
+                    if (inicio == null) {
+                              System.out.println("Lista Vacia");
+                    } else {
+                              while (actual != null && encontrado != true) {
+                                        if (actual.id_Producto == NodoBuscado) {
+                                                  System.out.println("El ID (" + NodoBuscado + ") ha sido encontrado");
+                                                  retorno = Integer.toString(actual.id_Producto) + "," + actual.nombre + "," + actual.precio;
+                                                  encontrado = true;
+                                                  break;
+                                        }
+                                        actual = actual.siguiente;
+                              }
+                              if (encontrado == false) {
+                                        System.out.println("El ID (" + NodoBuscado + ") no se encontro");
+                              }
+                    }
+
+                    return retorno;
           }
           
 }

@@ -5,33 +5,39 @@
  */
 package Estructuras;
 
+import Interfaz.Facturas;
+import Interfaz.Principal;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author javier
  */
 public class Matriz_Dispersa {
+          
+          private ArrayList<Object[]> datosTabla = new ArrayList<Object[]>();
           // ------------------------------------------------------------------------------------------
           //Varibles de matriz
-          private Nodo_Matriz_Dispersa inicioFila = new Nodo_Matriz_Dispersa(-1, 00, 00, "INICIO F");
-          private Nodo_Matriz_Dispersa inicioColumna = new Nodo_Matriz_Dispersa(00, -1, 00, "INICIO C");
+          private Nodo_Matriz_Dispersa inicioFila = new Nodo_Matriz_Dispersa(-1, 00, 00, 0, "INICIO F");
+          private Nodo_Matriz_Dispersa inicioColumna = new Nodo_Matriz_Dispersa(00, -1, 00, 0, "INICIO C");
           // ------------------------------------------------------------------------------------------
           //Variables comunes
 
           public void Matriz_Dispersa(){
                     System.out.println("INICIALIZADA LA MATRIZ");
-                    inicioFila = new Nodo_Matriz_Dispersa(-1, 0, 0, "INICIO F");
-                    inicioColumna = new Nodo_Matriz_Dispersa(0, -1, 0, "INICIO C");
+                    inicioFila = new Nodo_Matriz_Dispersa(-1, 0, 0, 0, "INICIO F");
+                    inicioColumna = new Nodo_Matriz_Dispersa(0, -1, 0, 0, "INICIO C");
           }
           
-          public void agregar(int fil, int col, int id, String nombre){
+          public void agregar(int fil, int col, int id, int cantidad, String nombre){
                     try {
-                              Nodo_Matriz_Dispersa nuevoInterno = new Nodo_Matriz_Dispersa(fil, col, id, nombre);
-                              Nodo_Matriz_Dispersa nuevaFila = new Nodo_Matriz_Dispersa(fil, -1, 00, "FILA");
-                              Nodo_Matriz_Dispersa nuevaColumna = new Nodo_Matriz_Dispersa(-1, col, 00, "COLUMNA");
+                              Nodo_Matriz_Dispersa nuevoInterno = new Nodo_Matriz_Dispersa(fil, col, id, cantidad, nombre);
+                              Nodo_Matriz_Dispersa nuevaFila = new Nodo_Matriz_Dispersa(fil, -1, 00, 0, "FILA");
+                              Nodo_Matriz_Dispersa nuevaColumna = new Nodo_Matriz_Dispersa(-1, col, 00, 0, "COLUMNA");
                               //Se ingresan las filas y columnas
                               crearFila(inicioFila, nuevaFila, fil);
                               crearColumna(inicioColumna, nuevaColumna, col);
@@ -207,12 +213,12 @@ public class Matriz_Dispersa {
                     if (temp != null) {
                               while(temp != null){
                                         System.out.println("Fila-----------------------------------");
-                                        System.out.println("id: " + temp.id + " || fila: " + temp.fila + " || columna: " + temp.columna);
+                                        System.out.println("id: " + temp.id_factura + " || fila: " + temp.fila + " || columna: " + temp.columna);
                                         System.out.println("--Dentro:--");
                                         if (temp.derecha != null) {
                                                   Nodo_Matriz_Dispersa temp2 = temp.derecha;
                                                   while(temp2 != null){
-                                                            System.out.println("id: " + temp2.id + " || fila: " + temp2.fila + " || columna: " + temp2.columna);
+                                                            System.out.println("id: " + temp2.id_factura + " || fila: " + temp2.fila + " || columna: " + temp2.columna);
                                                             temp2 = temp2.derecha;
                                                   }
                                         }
@@ -230,12 +236,12 @@ public class Matriz_Dispersa {
                     if (tempCol  != null) {
                               while(tempCol != null){
                                         System.out.println("Columna-----------------------------------");
-                                        System.out.println("id: " + tempCol.id + " || fila: " + tempCol.fila + " || columna: " + tempCol.columna);
+                                        System.out.println("id: " + tempCol.id_factura + " || fila: " + tempCol.fila + " || columna: " + tempCol.columna);
                                         System.out.println("--Dentro:--");
                                         if (tempCol.abajo != null) {
                                                   Nodo_Matriz_Dispersa temp2 = tempCol.abajo;
                                                   while(temp2 != null){
-                                                            System.out.println("id: " + temp2.id + " || fila: " + temp2.fila + " || columna: " + temp2.columna);
+                                                            System.out.println("id: " + temp2.id_factura + " || fila: " + temp2.fila + " || columna: " + temp2.columna);
                                                             temp2 = temp2.abajo;
                                                   }
                                         }
@@ -258,7 +264,7 @@ public class Matriz_Dispersa {
                               //cadenaMatrizPunteros += "F_0 -> F" + tmpFil.fila + "arrowhead=dot,arrowtail=normal;\n";
                               while (tmpFil != null) {
                                         //cadenaMatriz += "F" + tmpFil.fila + "[label = \"Punto 1: " + tmpFil.fila + "\", constraint=false, width = 1.5 style = filled, fillcolor = coral2, group = \"F" + tmpFil.fila + "\"];\n";
-                                        cadenaMatriz += "F" + tmpFil.fila + "[label = \"Punto 1: " + tmpFil.fila + "\", constraint=false, width = 1.5 style = filled, fillcolor = coral2, group = \"MA\"];\n";
+                                        cadenaMatriz += "F" + tmpFil.fila + "[label = \"NIT: " + tmpFil.fila + "\", constraint=false, width = 1.5 style = filled, fillcolor = coral2, group = \"MA\"];\n";
                                         ordenarFilas = "F" + tmpFil.fila + ";";
                                         if (tmpFil.abajo != null) {
                                                   cadenaMatrizPunteros += "F" + tmpFil.fila + " -> F" + tmpFil.abajo.fila + ";\n";
@@ -273,7 +279,7 @@ public class Matriz_Dispersa {
                               Nodo_Matriz_Dispersa tmpCol = recorrerColumna;
                               while (tmpCol != null) {
                                         System.out.println(tmpCol.nombre + "-----" + tmpCol.columna);
-                                        cadenaMatriz += "C" + tmpCol.columna + "[label = \"Punto 2: " + tmpCol.columna + "\"  width = 1.5 style = filled, fillcolor = skyblue2, group=\"G" + tmpCol.columna + "\"];\n";
+                                        cadenaMatriz += "C" + tmpCol.columna + "[label = \"PRODUCTO: " + tmpCol.columna + "\"  width = 1.5 style = filled, fillcolor = skyblue2, group=\"G" + tmpCol.columna + "\"];\n";
                                         ordenarColumnas += "C" + tmpCol.columna + ";";
                                         if (tmpCol.derecha != null) {
                                                   cadenaMatrizPunteros += "C" + tmpCol.columna + " -> C" + tmpCol.derecha.columna + ";\n";
@@ -291,7 +297,7 @@ public class Matriz_Dispersa {
                               int coco = 0;
                               String nodoAnterior = "";
                               while (tmpCol != null) {
-                                        cadenaNodosFila += "F" + tmpCol.fila + "C" + tmpCol.columna + "[label = \"Id: " + tmpCol.id + " Nombre: " + tmpCol.nombre + "\", width = 1.5, style = filled, fillcolor = gold2, group=\"G" + tmpCol.columna + "\"];\n";
+                                        cadenaNodosFila += "F" + tmpCol.fila + "C" + tmpCol.columna + "[label = \"Cantidad: " + tmpCol.cantidad + " : " + tmpCol.nombre + "\", width = 1.5, style = filled, fillcolor = gold2, group=\"G" + tmpCol.columna + "\"];\n";
                                         if (coco == 0) {
                                                   cadenaNodosFila += "C" + tmpCol.columna + "->" + "F" + tmpCol.fila + "C" + tmpCol.columna + ";\n";
                                                   //cadenaNodosFila += "F" + tmpCol.fila + "C" + tmpCol.columna + "-> C" + tmpCol.columna + ";\n";
@@ -375,6 +381,49 @@ public class Matriz_Dispersa {
                     ordenarColumnas = "";
                     ordenarFilas = "";
                     cadenaNodosFila = "";
+          }
+          
+          
+          
+          
+          public void AgregarAModeloTabla(DefaultTableModel modelo, int NIT, Facturas factura) {
+                    int lineas = modelo.getRowCount() - 1;
+                    for (int i = lineas; i >= 0; i--) {
+                              modelo.removeRow(i);
+                    }
+                    Nodo_Matriz_Dispersa recorrerColumnaNodo = inicioColumna.derecha;
+                    int subtotal = 0;
+                    int iva = 0;
+                    int SumaTotal = 0;
+                    while (recorrerColumnaNodo != null) {
+                              Nodo_Matriz_Dispersa tmpCol = recorrerColumnaNodo.abajo;
+                              int coco = 0;
+                              String nodoAnterior = "";
+                              while (tmpCol != null) {
+                                        //cadenaNodosFila += "F" + tmpCol.fila + "C" + tmpCol.columna + "[label = \"Cantidad: " + tmpCol.cantidad + " : " + tmpCol.nombre + "\", width = 1.5, style = filled, fillcolor = gold2, group=\"G" + tmpCol.columna + "\"];\n";
+                                        if (tmpCol.fila == NIT) {
+                                                  Principal principal = new Principal();
+                                                  System.out.println("SI SE ENCONTRO LA FACTURA");
+                                                  factura.No_Factura = Integer.toString(tmpCol.id_factura);
+                                                  //System.out.println(principal.lp.BuscarProducto(tmpCol.columna)); 
+                                                  String producto[] = principal.lp.BuscarProducto(tmpCol.columna).split(",");
+                                                  int total = Integer.parseInt(producto[2]) * tmpCol.cantidad;
+                                                  Object[] info = new Object[]{producto[0], producto[1], producto[2], tmpCol.cantidad, total};
+                                                  subtotal += total;
+                                                  //Object[] info = new Object[]{tmpCol.id_Producto, actual.nombre, actual.marca, actual.cantidad, actual.precio, actual.tipo, actual.disponible};
+                                                  datosTabla.add(info);
+                                                  modelo.addRow(info);
+                                        }
+
+                                        tmpCol = tmpCol.abajo;
+                              }
+                              recorrerColumnaNodo = recorrerColumnaNodo.derecha;
+                    }
+                    factura.Subtotal = Integer.toString(subtotal);
+                    iva = (int) (subtotal*0.12);
+                    factura.IVA = Integer.toString(iva);
+                    SumaTotal = subtotal + iva;
+                    factura.Total = Integer.toString(SumaTotal);
           }
           
 }

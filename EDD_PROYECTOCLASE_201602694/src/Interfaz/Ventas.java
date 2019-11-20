@@ -7,6 +7,7 @@ package Interfaz;
 
 import Diseno.RoundedCornerButtonUI;
 import Diseno.RoundedPanel;
+import static Interfaz.Productos.FramePrincipal;
 import com.sun.awt.AWTUtilities;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,15 +22,28 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author javier
  */
-public class Productos extends javax.swing.JFrame {
+public class Ventas extends javax.swing.JFrame {
 
+          
           private int EstadoARealizar = 0;
+          public static int ContadorFactura = 0;
           
           static Principal FramePrincipal = new Principal();
           Color RojoCerrar = new Color(245, 73, 73);
           Color AzulAtras = new Color(25, 35, 84);
-          String titulos[] = {"ID", "NOMBRE", "MARCA", "CANTIDAD", "PRECIO", "TIPO", "DISPONIBLE"};
-          DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+          String titulosProductos[] = {"ID", "NOMBRE", "MARCA", "CANTIDAD","PRECIO", "TIPO", "DISPONIBLE"};
+          String titulosClientes[] = {"NIT", "NOMBRE", "APELLIDO", "DIRECCION", "TELEFONO", "NACIMIENTO"};
+          DefaultTableModel modeloProductos = new DefaultTableModel(null, titulosProductos) {
+                    @Override
+                    public boolean isCellEditable(int fila, int columna) {
+                              if (columna == 7) {
+                                        return true;
+                              } else {
+                                        return false;
+                              }
+                    }
+          };
+          DefaultTableModel modeloClientes = new DefaultTableModel(null, titulosClientes) {
                     @Override
                     public boolean isCellEditable(int fila, int columna) {
                               if (columna == 6) {
@@ -39,11 +53,10 @@ public class Productos extends javax.swing.JFrame {
                               }
                     }
           };
-          
           /**
-           * Creates new form Productos
+           * Creates new form Ventas
            */
-          public Productos() {
+          public Ventas() {
                     initComponents();
                     Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 35, 35);
                     AWTUtilities.setWindowShape(this, forma);
@@ -68,30 +81,20 @@ public class Productos extends javax.swing.JFrame {
                     Btt_Modificar = new javax.swing.JButton();
                     Btt_Eliminar = new javax.swing.JButton();
                     jLabel1 = new javax.swing.JLabel();
-                    Txt_id = new javax.swing.JTextField();
+                    Txt_Nit_Cliente = new javax.swing.JTextField();
                     jSeparator1 = new javax.swing.JSeparator();
                     jLabel2 = new javax.swing.JLabel();
-                    Txt_nombre = new javax.swing.JTextField();
+                    Txt_Id_Producto = new javax.swing.JTextField();
                     jSeparator2 = new javax.swing.JSeparator();
-                    jLabel3 = new javax.swing.JLabel();
-                    Txt_marca = new javax.swing.JTextField();
-                    jSeparator3 = new javax.swing.JSeparator();
-                    jLabel4 = new javax.swing.JLabel();
-                    Txt_cantidad = new javax.swing.JTextField();
-                    jSeparator4 = new javax.swing.JSeparator();
-                    jLabel5 = new javax.swing.JLabel();
-                    Txt_tipo = new javax.swing.JTextField();
-                    jSeparator5 = new javax.swing.JSeparator();
-                    jLabel6 = new javax.swing.JLabel();
-                    Cbx_disponible = new javax.swing.JComboBox<>();
                     Btt_Agregar = new javax.swing.JButton();
                     jScrollPane1 = new javax.swing.JScrollPane();
-                    jTable1 = new javax.swing.JTable();
+                    Table_Clientes = new javax.swing.JTable();
                     Btt_CargarTabla = new javax.swing.JButton();
                     jLabel7 = new javax.swing.JLabel();
-                    jSeparator6 = new javax.swing.JSeparator();
-                    Txt_precio = new javax.swing.JTextField();
-                    jLabel8 = new javax.swing.JLabel();
+                    jScrollPane2 = new javax.swing.JScrollPane();
+                    Table_Productos = new javax.swing.JTable();
+                    jLabel3 = new javax.swing.JLabel();
+                    jLabel4 = new javax.swing.JLabel();
 
                     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     setUndecorated(true);
@@ -219,127 +222,43 @@ public class Productos extends javax.swing.JFrame {
                     jLabel1.setBackground(new java.awt.Color(24, 64, 128));
                     jLabel1.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
                     jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel1.setText("ID");
+                    jLabel1.setText("NIT CLIENTE");
                     jLabel1.setOpaque(true);
                     jPanel1.add(jLabel1);
                     jLabel1.setBounds(30, 140, 130, 30);
 
-                    Txt_id.setBackground(new java.awt.Color(255, 255, 255));
-                    Txt_id.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
-                    Txt_id.setForeground(new java.awt.Color(24, 64, 128));
-                    Txt_id.setBorder(null);
-                    Txt_id.setEnabled(false);
-                    Txt_id.addKeyListener(new java.awt.event.KeyAdapter() {
+                    Txt_Nit_Cliente.setBackground(new java.awt.Color(255, 255, 255));
+                    Txt_Nit_Cliente.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
+                    Txt_Nit_Cliente.setForeground(new java.awt.Color(24, 64, 128));
+                    Txt_Nit_Cliente.setBorder(null);
+                    Txt_Nit_Cliente.setEnabled(false);
+                    Txt_Nit_Cliente.addKeyListener(new java.awt.event.KeyAdapter() {
                               public void keyTyped(java.awt.event.KeyEvent evt) {
-                                        Txt_idKeyTyped(evt);
+                                        Txt_Nit_ClienteKeyTyped(evt);
                               }
                     });
-                    jPanel1.add(Txt_id);
-                    Txt_id.setBounds(170, 140, 400, 50);
+                    jPanel1.add(Txt_Nit_Cliente);
+                    Txt_Nit_Cliente.setBounds(170, 140, 400, 50);
                     jPanel1.add(jSeparator1);
                     jSeparator1.setBounds(170, 190, 400, 2);
 
                     jLabel2.setBackground(new java.awt.Color(24, 64, 128));
                     jLabel2.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
                     jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel2.setText("NOMBRE");
+                    jLabel2.setText("ID PRODUCTO");
                     jLabel2.setOpaque(true);
                     jPanel1.add(jLabel2);
                     jLabel2.setBounds(30, 230, 130, 30);
 
-                    Txt_nombre.setBackground(new java.awt.Color(255, 255, 255));
-                    Txt_nombre.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
-                    Txt_nombre.setForeground(new java.awt.Color(24, 64, 128));
-                    Txt_nombre.setBorder(null);
-                    Txt_nombre.setEnabled(false);
-                    jPanel1.add(Txt_nombre);
-                    Txt_nombre.setBounds(170, 230, 400, 50);
+                    Txt_Id_Producto.setBackground(new java.awt.Color(255, 255, 255));
+                    Txt_Id_Producto.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
+                    Txt_Id_Producto.setForeground(new java.awt.Color(24, 64, 128));
+                    Txt_Id_Producto.setBorder(null);
+                    Txt_Id_Producto.setEnabled(false);
+                    jPanel1.add(Txt_Id_Producto);
+                    Txt_Id_Producto.setBounds(170, 230, 400, 50);
                     jPanel1.add(jSeparator2);
                     jSeparator2.setBounds(170, 280, 400, 2);
-
-                    jLabel3.setBackground(new java.awt.Color(24, 64, 128));
-                    jLabel3.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
-                    jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel3.setText("MARCA");
-                    jLabel3.setOpaque(true);
-                    jPanel1.add(jLabel3);
-                    jLabel3.setBounds(30, 320, 130, 30);
-
-                    Txt_marca.setBackground(new java.awt.Color(255, 255, 255));
-                    Txt_marca.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
-                    Txt_marca.setForeground(new java.awt.Color(24, 64, 128));
-                    Txt_marca.setBorder(null);
-                    Txt_marca.setEnabled(false);
-                    jPanel1.add(Txt_marca);
-                    Txt_marca.setBounds(170, 320, 400, 50);
-                    jPanel1.add(jSeparator3);
-                    jSeparator3.setBounds(170, 370, 400, 2);
-
-                    jLabel4.setBackground(new java.awt.Color(24, 64, 128));
-                    jLabel4.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
-                    jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel4.setText("CANTIDAD");
-                    jLabel4.setOpaque(true);
-                    jPanel1.add(jLabel4);
-                    jLabel4.setBounds(30, 410, 130, 30);
-
-                    Txt_cantidad.setBackground(new java.awt.Color(255, 255, 255));
-                    Txt_cantidad.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
-                    Txt_cantidad.setForeground(new java.awt.Color(24, 64, 128));
-                    Txt_cantidad.setBorder(null);
-                    Txt_cantidad.setEnabled(false);
-                    Txt_cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-                              public void keyTyped(java.awt.event.KeyEvent evt) {
-                                        Txt_cantidadKeyTyped(evt);
-                              }
-                    });
-                    jPanel1.add(Txt_cantidad);
-                    Txt_cantidad.setBounds(170, 410, 400, 50);
-                    jPanel1.add(jSeparator4);
-                    jSeparator4.setBounds(170, 460, 400, 2);
-
-                    jLabel5.setBackground(new java.awt.Color(24, 64, 128));
-                    jLabel5.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
-                    jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel5.setText("TIPO");
-                    jLabel5.setOpaque(true);
-                    jPanel1.add(jLabel5);
-                    jLabel5.setBounds(30, 590, 130, 30);
-
-                    Txt_tipo.setBackground(new java.awt.Color(255, 255, 255));
-                    Txt_tipo.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
-                    Txt_tipo.setForeground(new java.awt.Color(24, 64, 128));
-                    Txt_tipo.setBorder(null);
-                    Txt_tipo.setEnabled(false);
-                    Txt_tipo.addActionListener(new java.awt.event.ActionListener() {
-                              public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                        Txt_tipoActionPerformed(evt);
-                              }
-                    });
-                    Txt_tipo.addKeyListener(new java.awt.event.KeyAdapter() {
-                              public void keyTyped(java.awt.event.KeyEvent evt) {
-                                        Txt_tipoKeyTyped(evt);
-                              }
-                    });
-                    jPanel1.add(Txt_tipo);
-                    Txt_tipo.setBounds(170, 590, 400, 50);
-                    jPanel1.add(jSeparator5);
-                    jSeparator5.setBounds(170, 640, 400, 2);
-
-                    jLabel6.setBackground(new java.awt.Color(24, 64, 128));
-                    jLabel6.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
-                    jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel6.setText("DISPONIBLE");
-                    jLabel6.setOpaque(true);
-                    jPanel1.add(jLabel6);
-                    jLabel6.setBounds(30, 680, 130, 30);
-
-                    Cbx_disponible.setBackground(new java.awt.Color(255, 255, 255));
-                    Cbx_disponible.setFont(new java.awt.Font("Lato Light", 1, 18)); // NOI18N
-                    Cbx_disponible.setForeground(new java.awt.Color(24, 64, 128));
-                    Cbx_disponible.setEnabled(false);
-                    jPanel1.add(Cbx_disponible);
-                    Cbx_disponible.setBounds(170, 680, 100, 50);
 
                     Btt_Agregar.setBackground(new java.awt.Color(255, 255, 255));
                     Btt_Agregar.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
@@ -363,14 +282,14 @@ public class Productos extends javax.swing.JFrame {
                               }
                     });
                     jPanel1.add(Btt_Agregar);
-                    Btt_Agregar.setBounds(30, 790, 540, 100);
+                    Btt_Agregar.setBounds(620, 160, 290, 100);
 
                     jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
                     jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-                    jTable1.setBackground(new java.awt.Color(255, 255, 255));
-                    jTable1.setFont(new java.awt.Font("Lato Light", 0, 14)); // NOI18N
-                    jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                    Table_Clientes.setBackground(new java.awt.Color(255, 255, 255));
+                    Table_Clientes.setFont(new java.awt.Font("Lato Light", 0, 14)); // NOI18N
+                    Table_Clientes.setModel(new javax.swing.table.DefaultTableModel(
                               new Object [][] {
                                         {null, null, null, null, null, null},
                                         {null, null, null, null, null, null},
@@ -389,23 +308,23 @@ public class Productos extends javax.swing.JFrame {
                                         return canEdit [columnIndex];
                               }
                     });
-                    jTable1.setFocusable(false);
-                    jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
-                    jTable1.setRowHeight(25);
-                    jTable1.setSelectionBackground(new java.awt.Color(232, 57, 95));
-                    jTable1.setShowVerticalLines(false);
-                    jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+                    Table_Clientes.setFocusable(false);
+                    Table_Clientes.setIntercellSpacing(new java.awt.Dimension(0, 0));
+                    Table_Clientes.setRowHeight(25);
+                    Table_Clientes.setSelectionBackground(new java.awt.Color(232, 57, 95));
+                    Table_Clientes.setShowVerticalLines(false);
+                    Table_Clientes.addMouseListener(new java.awt.event.MouseAdapter() {
                               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                        jTable1MouseClicked(evt);
+                                        Table_ClientesMouseClicked(evt);
                               }
                     });
-                    jScrollPane1.setViewportView(jTable1);
+                    jScrollPane1.setViewportView(Table_Clientes);
 
                     jPanel1.add(jScrollPane1);
-                    jScrollPane1.setBounds(600, 370, 780, 430);
+                    jScrollPane1.setBounds(750, 430, 630, 400);
 
                     Btt_CargarTabla.setBackground(new java.awt.Color(24, 4, 29));
-                    Btt_CargarTabla.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
+                    Btt_CargarTabla.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
                     Btt_CargarTabla.setForeground(new java.awt.Color(255, 255, 255));
                     Btt_CargarTabla.setText("CARGAR TABLA");
                     Btt_CargarTabla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -425,37 +344,67 @@ public class Productos extends javax.swing.JFrame {
                               }
                     });
                     jPanel1.add(Btt_CargarTabla);
-                    Btt_CargarTabla.setBounds(600, 820, 780, 60);
+                    Btt_CargarTabla.setBounds(310, 840, 780, 50);
 
                     jLabel7.setFont(new java.awt.Font("Lato", 1, 36)); // NOI18N
                     jLabel7.setForeground(new java.awt.Color(239, 87, 86));
                     jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoChino.png"))); // NOI18N
-                    jLabel7.setText("PRODUCTOS");
+                    jLabel7.setText("VENTAS");
                     jPanel1.add(jLabel7);
                     jLabel7.setBounds(220, 40, 310, 70);
-                    jPanel1.add(jSeparator6);
-                    jSeparator6.setBounds(170, 550, 400, 2);
 
-                    Txt_precio.setBackground(new java.awt.Color(255, 255, 255));
-                    Txt_precio.setFont(new java.awt.Font("Lato Light", 1, 24)); // NOI18N
-                    Txt_precio.setForeground(new java.awt.Color(24, 64, 128));
-                    Txt_precio.setBorder(null);
-                    Txt_precio.setEnabled(false);
-                    Txt_precio.addKeyListener(new java.awt.event.KeyAdapter() {
-                              public void keyTyped(java.awt.event.KeyEvent evt) {
-                                        Txt_precioKeyTyped(evt);
+                    jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+                    jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
+
+                    Table_Productos.setBackground(new java.awt.Color(255, 255, 255));
+                    Table_Productos.setFont(new java.awt.Font("Lato Light", 0, 14)); // NOI18N
+                    Table_Productos.setModel(new javax.swing.table.DefaultTableModel(
+                              new Object [][] {
+                                        {null, null, null, null, null, null, null},
+                                        {null, null, null, null, null, null, null},
+                                        {null, null, null, null, null, null, null},
+                                        {null, null, null, null, null, null, null}
+                              },
+                              new String [] {
+                                        "ID", "NOMBRE", "MARCA", "CANTIDAD", "PRECIO", "TIPO", "DISPONIBLE"
+                              }
+                    ) {
+                              boolean[] canEdit = new boolean [] {
+                                        false, false, false, false, false, false, true
+                              };
+
+                              public boolean isCellEditable(int rowIndex, int columnIndex) {
+                                        return canEdit [columnIndex];
                               }
                     });
-                    jPanel1.add(Txt_precio);
-                    Txt_precio.setBounds(170, 500, 400, 50);
+                    Table_Productos.setFocusable(false);
+                    Table_Productos.setIntercellSpacing(new java.awt.Dimension(0, 0));
+                    Table_Productos.setRowHeight(25);
+                    Table_Productos.setSelectionBackground(new java.awt.Color(232, 57, 95));
+                    Table_Productos.setShowVerticalLines(false);
+                    Table_Productos.addMouseListener(new java.awt.event.MouseAdapter() {
+                              public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                        Table_ProductosMouseClicked(evt);
+                              }
+                    });
+                    jScrollPane2.setViewportView(Table_Productos);
 
-                    jLabel8.setBackground(new java.awt.Color(24, 64, 128));
-                    jLabel8.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
-                    jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-                    jLabel8.setText("PRECIO");
-                    jLabel8.setOpaque(true);
-                    jPanel1.add(jLabel8);
-                    jLabel8.setBounds(30, 500, 130, 30);
+                    jPanel1.add(jScrollPane2);
+                    jScrollPane2.setBounds(20, 430, 630, 400);
+
+                    jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+                    jLabel3.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+                    jLabel3.setForeground(new java.awt.Color(153, 153, 0));
+                    jLabel3.setText("CLIENTES");
+                    jPanel1.add(jLabel3);
+                    jLabel3.setBounds(1020, 390, 110, 40);
+
+                    jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+                    jLabel4.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+                    jLabel4.setForeground(new java.awt.Color(153, 153, 0));
+                    jLabel4.setText("PRODUCTOS");
+                    jPanel1.add(jLabel4);
+                    jLabel4.setBounds(250, 390, 170, 40);
 
                     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                     getContentPane().setLayout(layout);
@@ -556,7 +505,7 @@ public class Productos extends javax.swing.JFrame {
                     HabilitarComponentes(true);
           }//GEN-LAST:event_Btt_EliminarActionPerformed
 
-          private void Txt_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_idKeyTyped
+          private void Txt_Nit_ClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_Nit_ClienteKeyTyped
                     char car = evt.getKeyChar();
                     if (Character.isLetter(car)) {
                               evt.consume();
@@ -564,11 +513,7 @@ public class Productos extends javax.swing.JFrame {
                     } else {
 
                     }
-          }//GEN-LAST:event_Txt_idKeyTyped
-
-          private void Txt_tipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_tipoKeyTyped
-                    
-          }//GEN-LAST:event_Txt_tipoKeyTyped
+          }//GEN-LAST:event_Txt_Nit_ClienteKeyTyped
 
           private void Btt_AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_AgregarMouseEntered
                     Btt_Agregar.setBackground(new Color(205, 0, 41));
@@ -581,39 +526,45 @@ public class Productos extends javax.swing.JFrame {
           }//GEN-LAST:event_Btt_AgregarMouseExited
 
           private void Btt_AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_AgregarActionPerformed
-                    if (Txt_id.getText().equals("") || Txt_nombre.getText().equals("") || Txt_marca.getText().equals("") || Txt_cantidad.getText().equals("") || Txt_tipo.getText().equals("") || Cbx_disponible.getSelectedItem().equals("")) {
+                    if (Txt_Nit_Cliente.getText().equals("") || Txt_Id_Producto.getText().equals("")) {
                               JOptionPane.showMessageDialog(null, "Debe completar todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
                     } else {
                               if (EstadoARealizar == 1) {
-                                        boolean disponible = false;
-                                        if (Cbx_disponible.getSelectedItem().toString().equals("SI")){
-                                                  disponible = true;
-                                        } else {
-                                                  disponible = false;
+                                        //FramePrincipal.lp.agregarALista(Integer.parseInt(Txt_id.getText()), Txt_nombre.getText(), Txt_marca.getText(), Integer.parseInt(Txt_cantidad.getText()), Txt_tipo.getText(), disponible);
+                                        String ContadorString = Integer.toString(ContadorFactura);
+                                        String separador[] = Txt_Id_Producto.getText().split(",");
+                                        System.out.println("ESTE ES EL TAMANO DEL SEPARADOR: " + separador.length);
+                                        for (int i = 0; i < separador.length; i++) {
+                                                  int cantidadComprar = 0;
+                                                  boolean aceptado = false;
+                                                  do {
+                                                            String verificar = JOptionPane.showInputDialog(this, "Ingrese la cantidad del producto [" + separador[i] + "] a comprar", 0);
+                                                            try {
+                                                                      cantidadComprar = Integer.parseInt(verificar);
+                                                                      aceptado = true;
+                                                            } catch (Exception e) {
+                                                                      JOptionPane.showConfirmDialog(this, "Unicamente se permiten numeros", "Error", JOptionPane.ERROR_MESSAGE);
+                                                            }
+                                                  } while (!aceptado);
+                                                  
+                                                  //FramePrincipal.md.agregar(Integer.parseInt(Txt_Nit_Cliente.getText()), Integer.parseInt(Txt_Id_Producto.getText()), ContadorFactura, "Factura: " + ContadorString);
+                                                  FramePrincipal.md.agregar(Integer.parseInt(Txt_Nit_Cliente.getText()), Integer.parseInt(separador[i]), ContadorFactura, cantidadComprar, "Factura: " + ContadorFactura);
                                         }
-                                        FramePrincipal.lp.agregarALista(Integer.parseInt(Txt_id.getText()), Txt_nombre.getText(), Txt_marca.getText(), Integer.parseInt(Txt_cantidad.getText()), Integer.parseInt(Txt_precio.getText()), Txt_tipo.getText(), disponible);
-                                        System.out.println("En total hay: " + FramePrincipal.ldc.CuantoHay());
-                                        FramePrincipal.lp.ImprimirListaDoble();
-                                        JOptionPane.showMessageDialog(null, "Producto agregado con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
-                                        CargarTabla();
+                                        JOptionPane.showMessageDialog(null, "Venta agregada con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+                                        CargarTablas();
                                         LimpiarComponentes();
                                         HabilitarComponentes(false);
+                                        ContadorFactura++;
                               } else if (EstadoARealizar == 2) {
-                                        boolean disponible = false;
-                                        if (Cbx_disponible.getSelectedItem().toString().equals("SI")){
-                                                  disponible = true;
-                                        } else {
-                                                  disponible = false;
-                                        }
-                                        FramePrincipal.lp.ModificarListaProductos(Integer.parseInt(Txt_id.getText()), Txt_nombre.getText(), Txt_marca.getText(), Integer.parseInt(Txt_cantidad.getText()), Integer.parseInt(Txt_precio.getText()), Txt_tipo.getText(), disponible);
-                                        JOptionPane.showMessageDialog(null, "Producto modificado con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
-                                        CargarTabla();
+                                        //FramePrincipal.lp.ModificarListaProductos(Integer.parseInt(Txt_id.getText()), Txt_nombre.getText(), Txt_marca.getText(), Integer.parseInt(Txt_cantidad.getText()), Txt_tipo.getText(), disponible);
+                                        JOptionPane.showMessageDialog(null, "Venta modificada con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+                                        CargarTablas();
                                         LimpiarComponentes();
                                         HabilitarComponentes(false);
                               } else if (EstadoARealizar == 3) {
-                                        FramePrincipal.lp.EliminarListaProductos(Integer.parseInt(Txt_id.getText()));
-                                        JOptionPane.showMessageDialog(null, "Producto eliminado con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
-                                        CargarTabla();
+                                        FramePrincipal.lp.EliminarListaProductos(Integer.parseInt(Txt_Nit_Cliente.getText()));
+                                        JOptionPane.showMessageDialog(null, "Venta eliminada con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+                                        CargarTablas();
                                         LimpiarComponentes();
                                         HabilitarComponentes(false);
                               } else {
@@ -622,16 +573,10 @@ public class Productos extends javax.swing.JFrame {
                     }
           }//GEN-LAST:event_Btt_AgregarActionPerformed
 
-          private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-                    int fila = jTable1.getSelectedRow();
-                    Txt_id.setText(jTable1.getValueAt(fila, 0).toString());
-                    Txt_nombre.setText(jTable1.getValueAt(fila, 1).toString());
-                    Txt_marca.setText(jTable1.getValueAt(fila, 2).toString());
-                    Txt_cantidad.setText(jTable1.getValueAt(fila, 3).toString());
-                    Txt_cantidad.setText(jTable1.getValueAt(fila, 4).toString());
-                    Txt_tipo.setText(jTable1.getValueAt(fila, 5).toString());
-                    Cbx_disponible.setSelectedItem(jTable1.getValueAt(fila, 6));
-          }//GEN-LAST:event_jTable1MouseClicked
+          private void Table_ClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_ClientesMouseClicked
+                    int fila = Table_Clientes.getSelectedRow();
+                    Txt_Nit_Cliente.setText(Table_Clientes.getValueAt(fila, 0).toString());
+          }//GEN-LAST:event_Table_ClientesMouseClicked
 
           private void Btt_CargarTablaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btt_CargarTablaMouseEntered
                     Btt_CargarTabla.setSize(790, 70);
@@ -644,32 +589,29 @@ public class Productos extends javax.swing.JFrame {
           }//GEN-LAST:event_Btt_CargarTablaMouseExited
 
           private void Btt_CargarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CargarTablaActionPerformed
-                    CargarTabla();
+                    CargarTablas();
           }//GEN-LAST:event_Btt_CargarTablaActionPerformed
 
-          private void Txt_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_tipoActionPerformed
-                    // TODO add your handling code here:
-          }//GEN-LAST:event_Txt_tipoActionPerformed
-
-          private void Txt_cantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_cantidadKeyTyped
-                    char car = evt.getKeyChar();
-                    if (Character.isLetter(car)) {
-                              evt.consume();
-                              getToolkit().beep();
-                    } else {
-
+          private void Table_ProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_ProductosMouseClicked
+                    int fila[] = Table_Productos.getSelectedRows();
+                    String listado = "";
+                    for (int i = 0; i < fila.length; i++) {
+                              if (i == fila.length) {
+                                        listado +=  Table_Productos.getValueAt(i, 0);
+                              } else {
+                                        listado +=  Table_Productos.getValueAt(i, 0) + ",";
+                              }
                     }
-          }//GEN-LAST:event_Txt_cantidadKeyTyped
-
-          private void Txt_precioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Txt_precioKeyTyped
-                    char car = evt.getKeyChar();
-                    if (Character.isLetter(car)) {
-                              evt.consume();
-                              getToolkit().beep();
-                    } else {
-
-                    }
-          }//GEN-LAST:event_Txt_precioKeyTyped
+                    Txt_Id_Producto.setText(listado);
+                    /*Txt_Id_Producto.setText(Table_Productos.getValueAt(fila, 0).toString());
+                    //System.out.println(Table_Productos.getValueAt(fila, 4).toString());
+                    int cuantosExistencia = Integer.parseInt(Table_Productos.getValueAt(fila, 4).toString());
+                    for (int i = 1; i <= cuantosExistencia; i++) {
+                              System.out.println("iteracion " + i);
+                              Cbx_Cantidad.addItem(Integer.toString(i));
+                    }*/
+                    listado = "";
+          }//GEN-LAST:event_Table_ProductosMouseClicked
 
           /**
            * @param args the command line arguments
@@ -688,20 +630,20 @@ public class Productos extends javax.swing.JFrame {
                                         }
                               }
                     } catch (ClassNotFoundException ex) {
-                              java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                              java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     } catch (InstantiationException ex) {
-                              java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                              java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     } catch (IllegalAccessException ex) {
-                              java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                              java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                              java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                              java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     }
                     //</editor-fold>
 
                     /* Create and display the form */
                     java.awt.EventQueue.invokeLater(new Runnable() {
                               public void run() {
-                                        new Productos().setVisible(true);
+                                        new Ventas().setVisible(true);
                               }
                     });
           }
@@ -745,41 +687,37 @@ public class Productos extends javax.swing.JFrame {
                     Btt_Eliminar.setVerticalTextPosition(SwingConstants.BOTTOM);
                     
                     Panel_Interno.setOpaque(false);
-                              
-                    Cbx_disponible.addItem("SI");
-                    Cbx_disponible.addItem("NO");
                     
-                    jTable1.setBorder(null);
-                    jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-                    jTable1.getTableHeader().setOpaque(true);
-                    jTable1.getTableHeader().setBackground(new Color(32, 136, 203));
-                    jTable1.getTableHeader().setForeground(new Color(255, 255, 255));
-                    jTable1.setRowHeight(25);
+                    Table_Clientes.setBorder(null);
+                    Table_Clientes.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+                    Table_Clientes.getTableHeader().setOpaque(true);
+                    Table_Clientes.getTableHeader().setBackground(new Color(32, 136, 203));
+                    Table_Clientes.getTableHeader().setForeground(new Color(255, 255, 255));
+                    Table_Clientes.setRowHeight(25);
+                    
+                    Table_Productos.setBorder(null);
+                    Table_Productos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+                    Table_Productos.getTableHeader().setOpaque(true);
+                    Table_Productos.getTableHeader().setBackground(new Color(32, 136, 203));
+                    Table_Productos.getTableHeader().setForeground(new Color(255, 255, 255));
+                    Table_Productos.setRowHeight(25);
           }
           
-          private void CargarTabla() {
-                    jTable1.setModel(modelo);
-                    FramePrincipal.lp.AgregarAModeloTabla(modelo);
+          private void CargarTablas() {
+                    Table_Clientes.setModel(modeloClientes);
+                    Table_Productos.setModel(modeloProductos);
+                    FramePrincipal.lp.AgregarAModeloTabla(modeloProductos);
+                    FramePrincipal.ldc.AgregarAModeloTabla(modeloClientes);
           }
           
           private void LimpiarComponentes(){
-                    Txt_id.setText("");
-                    Txt_nombre.setText("");
-                    Txt_marca.setText("");
-                    Txt_cantidad.setText("");
-                    Txt_precio.setText("");
-                    Txt_tipo.setText("");
-                    Cbx_disponible.setSelectedIndex(0);
+                    Txt_Nit_Cliente.setText("");
+                    Txt_Id_Producto.setText("");
           }
           
           private void HabilitarComponentes(boolean estado){
-                    Txt_id.setEnabled(estado);
-                    Txt_nombre.setEnabled(estado);
-                    Txt_marca.setEnabled(estado);
-                    Txt_cantidad.setEnabled(estado);
-                    Txt_precio.setEnabled(estado);
-                    Txt_tipo.setEnabled(estado);
-                    Cbx_disponible.setEnabled(estado);
+                    Txt_Nit_Cliente.setEnabled(estado);
+                    Txt_Id_Producto.setEnabled(estado);
                     Btt_Agregar.setEnabled(estado);
           }
 
@@ -791,30 +729,20 @@ public class Productos extends javax.swing.JFrame {
           private javax.swing.JButton Btt_Eliminar;
           private javax.swing.JButton Btt_Modificar;
           private javax.swing.JButton Btt_Nuevo;
-          private javax.swing.JComboBox<String> Cbx_disponible;
           private javax.swing.JPanel Panel_Interno;
-          private javax.swing.JTextField Txt_cantidad;
-          private javax.swing.JTextField Txt_id;
-          private javax.swing.JTextField Txt_marca;
-          private javax.swing.JTextField Txt_nombre;
-          private javax.swing.JTextField Txt_precio;
-          private javax.swing.JTextField Txt_tipo;
+          private javax.swing.JTable Table_Clientes;
+          private javax.swing.JTable Table_Productos;
+          private javax.swing.JTextField Txt_Id_Producto;
+          private javax.swing.JTextField Txt_Nit_Cliente;
           private javax.swing.JLabel jLabel1;
           private javax.swing.JLabel jLabel2;
           private javax.swing.JLabel jLabel3;
           private javax.swing.JLabel jLabel4;
-          private javax.swing.JLabel jLabel5;
-          private javax.swing.JLabel jLabel6;
           private javax.swing.JLabel jLabel7;
-          private javax.swing.JLabel jLabel8;
           private javax.swing.JPanel jPanel1;
           private javax.swing.JScrollPane jScrollPane1;
+          private javax.swing.JScrollPane jScrollPane2;
           private javax.swing.JSeparator jSeparator1;
           private javax.swing.JSeparator jSeparator2;
-          private javax.swing.JSeparator jSeparator3;
-          private javax.swing.JSeparator jSeparator4;
-          private javax.swing.JSeparator jSeparator5;
-          private javax.swing.JSeparator jSeparator6;
-          private javax.swing.JTable jTable1;
           // End of variables declaration//GEN-END:variables
 }
